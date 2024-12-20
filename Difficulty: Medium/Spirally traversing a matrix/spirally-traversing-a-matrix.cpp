@@ -6,87 +6,43 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-  void fun(vector<vector<int> > &m, vector<int> &v1,int balu,int i,int j,int pu){
-      if(pu==v1.size()){
-          return;
-      }
-      if( balu==1){
-          
-     if(j>=m[0].size() || m[i][j]==-181){
-              j=j-1;
-              balu=balu+1;
-               fun(m,v1,balu,i+1,j,pu);
+    vector<int> spirallyTraverse(vector<vector<int> > &mat) {
+        vector<int> v1;
+      int top=0,bottom=mat.size()-1,left=0,right=mat[0].size()-1,dir=0;
+      while(top<=bottom && left<=right){
+          if(dir==0){
+              for(int i=left;i<=right;i++){
+                  v1.push_back(mat[top][i]);
+                  
+                  
+              }
+              top++;
               
+              
+          }
+          else if(dir==1){
+              for(int i=top;i<=bottom;i++){
+                  v1.push_back(mat[i][right]);
+              }
+              right--;
+              
+          }
+          else if(dir==2){
+              for(int i=right;i>=left;i--){
+                  v1.push_back(mat[bottom][i]);
+              }
+              bottom--;
               
           }
           else{
-          v1.push_back(m[i][j]);
-          m[i][j]=-181;
-          
-          fun(m,v1,balu,i,j+1,pu);
+              for(int i=bottom;i>=top;i--){
+                  v1.push_back(mat[i][left]);
+              }
+              left++;
+              
           }
+          dir=(dir+1)%4;
       }
-      else if(balu==2){
-             if(i>=m.size() || m[i][j]==-181){
-              i=i-1;
-              balu=balu+1;
-               fun(m,v1,balu,i,j-1,pu);
-              
-          }
-          else{
-          v1.push_back(m[i][j]);
-           m[i][j]=-181;
-          
-          fun(m,v1,balu,i+1,j,pu);
-          }
-          
-      }
-      else if(balu==3){
-            if(j>=m[0].size() || m[i][j]==-181 ){
-                j=j+1;
-              balu=balu+1;
-              fun(m,v1,balu,i-1,j,pu);
-              
-              
-          }
-         
-          else{
-          v1.push_back(m[i][j]);
-           m[i][j]=-181;
-          
-          fun(m,v1,balu,i,j-1,pu);
-          }
-          
-          
-      }
-      else if(balu==4){
-              if(i>=m.size() || m[i][j]==-181 ){
-                  i=i+1;
-              balu=1;
-               fun(m,v1,balu,i,j+1,pu);
-              
-              
-          }
-        
-          else{
-          v1.push_back(m[i][j]);
-           m[i][j]=-181;
-          
-          fun(m,v1,balu,i-1,j,pu);
-          }
-      }
-  }
-    vector<int> spirallyTraverse(vector<vector<int> > &m) {
-        int pu=0;
-        for(int i=0;i<m.size();i++){
-            for(int j=0;j<m[i].size();j++){
-                pu++;
-            }
-        }
-        
-      vector<int> v1;
-      vector<int> balu={1,2,3,4};
-      fun(m,v1,1,0,0,pu);
       return v1;
     }
 };
@@ -99,9 +55,10 @@ int main() {
     while (t--) {
         int r, c;
         cin >> r >> c;
-        vector<vector<int>> matrix(r, vector<int>(c, 0));
+        vector<vector<int>> matrix(r);
 
         for (int i = 0; i < r; i++) {
+            matrix[i].assign(c, 0);
             for (int j = 0; j < c; j++) {
                 cin >> matrix[i][j];
             }
@@ -112,6 +69,9 @@ int main() {
         for (int i = 0; i < result.size(); ++i)
             cout << result[i] << " ";
         cout << endl;
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
