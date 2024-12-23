@@ -9,24 +9,35 @@ using namespace std;
 
 class Solution {
   public:
-    bool ans=false;
-    void fun(vector<int> arr,int t,int i,int s){
-        if(s==t){
-            ans=true;
-            return;
-        }
-        
-        if(i==arr.size() || ans==true ||s>t ){
-            return;
-        }
-        fun(arr,t,i+1,s+arr[i]);
-        fun(arr,t,i+1,s);
-        
-        
-    }
     bool isSubsetSum(vector<int>& arr, int t) {
-        fun(arr,t,0,0);
-        return ans;
+        vector<vector<int>> v1(arr.size(),vector<int>(t+1,0));
+           
+        
+        for(int i=0;i<v1.size();i++){
+            for(int j=0;j<v1[i].size();j++){
+                if(i==0){
+                    if(j==0 || arr[i]==j){
+                        v1[i][j]=1;
+                    }
+                    
+                }
+                else{
+                   
+                     if(j==0 || arr[i]==j){
+                        v1[i][j]=1;
+                    }
+                    else if(j>arr[i] && v1[i-1][j-arr[i]]==1){
+                        v1[i][j]=1;
+                    }
+                    else if(v1[i-1][j]==1){
+                        v1[i][j]=1;
+                    }
+                   
+                    
+                }
+            }
+        }
+        return v1[arr.size()-1][t]==1?true:false;
     }
 };
 
