@@ -39,6 +39,7 @@ Node *insertSorted(Node *head, int data) {
 
 
 // } Driver Code Ends
+
 /* Link list Node
 struct Node {
   int data;
@@ -53,49 +54,38 @@ struct Node {
 class Solution {
   public:
     Node* sortedMerge(Node* h1, Node* h2) {
-       Node *k=new Node(0);
-       Node* g=k;
-       Node* pu=h1;
-       Node* pu1=h2;
-       while(pu!=NULL && pu1!=NULL){
-           if(pu->data<pu1->data){
-               Node* g=new Node(pu->data);
-               k->next=g;
-               k=k->next;
-               pu=pu->next;
-               
-               
-           }
-           else{
-                   Node* g=new Node(pu1->data);
-               k->next=g;
-               k=k->next;
-               pu1=pu1->next;
-               
-           }
-       }
-             while(pu!=NULL ){
-          
-               Node* g=new Node(pu->data);
-               k->next=g;
-               k=k->next;
-               pu=pu->next;
-               
-               
-          
-       }
-             while( pu1!=NULL){
-          
-                   Node* g=new Node(pu1->data);
-               k->next=g;
-               k=k->next;
-               pu1=pu1->next;
-               
-           
-       }
-       return g->next;
+        
+        Node* temp=new Node(0);
+        Node* pt=temp;
+        while(h1!=NULL && h2!=NULL){
+            if(h1->data<h2->data){
+                temp->next=h1;
+                
+                h1=h1->next;
+                temp=temp->next;
+                temp->next=NULL;
+                
+                
+                
+            }
+            else{
+                temp->next=h2;
+                h2=h2->next;
+                temp=temp->next;
+                temp->next=NULL;
+                
+            }
+        }
+        if(h1!=NULL){
+            temp->next=h1;
+        }
+        if(h2!=NULL){
+            temp->next=h2;
+        }
+        return pt->next;
     }
 };
+
 
 //{ Driver Code Starts.
 
