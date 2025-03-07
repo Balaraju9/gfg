@@ -4,71 +4,46 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 // User function Template for C++
 class Solution {
   public:
     string smallestNumber(int s, int d) {
-        string te1=to_string(s);
-        int abu=s;
-        
-        if(te1.size()>d){
-            return "-1";
-        }
-        vector<int> v1;
-        while(d--){
-            v1.push_back(0);
-        }
-        int j=v1.size()-1;
-        while(s>0 && j>=0){
-            if(s>=9){
-                v1[j]=9;
-                s=s-9;
-                
-                
-            }
-            else{
-                v1[j]=s;
-                s=0;
-                
-            }
-            j--;
-            
-        }
-        if(s>0){
-            return "-1";
-        }
-        if(v1[0]==0){
-            for(int i=1;i<v1.size();i++){
-                if(v1[i]>1){
-                    v1[i]--;
-                    v1[0]=1;
-                    break;
-                }
-                else if(v1[i]==1){
-                    v1[i]=0;
-                    v1[0]=1;
-                    break;
-                }
-            
-        }
-        }
-        int ba=0;
         string s1="";
-        for(auto &o:v1){
-            ba+=o;
-            s1+=to_string(o);
-           
-           
+        while(d>0){
+            s1+='0';
+            d--;
+        }
+        for(int i=s1.size()-1;i>=0;i--){
+            for(int i1=9;i1>=1;i1--){
+                if(s>=i1 && s!=0){
+                    s1[i]=i1+'0';
+                    s=s-i1;
+                    break;
+                    
+                }
+            }
             
         }
-
-      
+ 
+        if(s>0) return "-1";
+        if(s1[0]!='0') return s1;
+        int i1=0;
+        while(i1<s1.size() && s1[i1]=='0'){
+            i1++;
+        }
+        if(s1[i1]=='1'){
+            swap(s1[0],s1[i1]);
+            return s1;
+        }
+        s1[0]='1';
+        s1[i1]=((s1[i1]-'0')-1)+'0';
         return s1;
         
         
-        // code here
     }
 };
+
 
 //{ Driver Code Starts.
 
