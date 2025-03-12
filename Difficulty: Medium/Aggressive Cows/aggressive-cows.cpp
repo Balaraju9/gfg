@@ -6,49 +6,43 @@ using namespace std;
 
 
 // } Driver Code Ends
+
 // User function Template for C++
 
 class Solution {
   public:
-    bool fun(vector<int> st,int k,int mid){
-    
-        int cnt=1,sav=st[0];
+    bool fun(vector<int> &st,int m,int cow){
+        int pet=st[0];
         for(int i=1;i<st.size();i++){
-            if(st[i]-sav>=mid){
-                cnt++;
-                sav=st[i];
-                
+            if(st[i]-pet>=m){
+                pet=st[i];
+                cow--;
             }
-                if(cnt==k){
-                    return true;
-                }
-            
+            if(cow-1<=0){
+                return true;
+            }
         }
         return false;
     }
-
     int aggressiveCows(vector<int> &st, int k) {
         sort(st.begin(),st.end());
-        int l=1,h=st[st.size()-1]-st[0];
-        int ans=0;
+        int h=st[st.size()-1];
+        int l=0;
         while(l<=h){
-            int mid=(l+h)/2;
-            if(fun(st,k,mid)){
-                
-                ans=mid;
-                
-                l=mid+1;
-                
+            int m=(l+h)/2;
+            if(fun(st,m,k)==true){
+                l=m+1;
             }
             else{
-                h=mid-1;
+                h=m-1;
             }
         }
-        return ans;
+        return h;
 
-    
+      
     }
 };
+
 
 //{ Driver Code Starts.
 
